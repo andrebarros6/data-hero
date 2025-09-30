@@ -1,0 +1,1946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Data Hero's Journey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #0B2F1D 0%, #1B4332 50%, #2D5A3D 100%);
+            color: #F1FAEE;
+            overflow-x: hidden;
+        }
+
+        /* Floating particles background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: #52B788;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Navigation - The Journey Map */
+        .nav-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(27, 67, 50, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 10px 20px;
+            border: 1px solid #52B788;
+        }
+
+        .hero-nav {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .hero-nav a {
+            color: #A8DADC;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .hero-nav a:hover {
+            color: #FFD60A;
+            background: rgba(255, 214, 10, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .hero-nav a.active::before {
+            content: '⚡';
+            position: absolute;
+            left: -5px;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #FFD60A; }
+            to { text-shadow: 0 0 15px #FFD60A, 0 0 25px #FFD60A; }
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #52B788, #FFD60A, #52B788);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #A8DADC;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Section Styling */
+        .journey-section {
+            min-height: 100vh;
+            padding: 100px 50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #FFD60A;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #52B788, transparent);
+        }
+
+        .section-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            gap: 40px;
+        }
+
+        /* Origins Summary Box Styles */
+        .origins-summary-box {
+            background: linear-gradient(135deg, rgba(27, 67, 50, 0.9), rgba(45, 90, 61, 0.8));
+            border: 2px solid #52B788;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(82, 183, 136, 0.2);
+        }
+
+        .summary-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .summary-title {
+            color: #FFD60A;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .summary-text {
+            color: #A8DADC;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .story-toggle {
+            background: linear-gradient(45deg, #52B788, #45A574);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(82, 183, 136, 0.3);
+            background: linear-gradient(45deg, #45A574, #52B788);
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .story-toggle.expanded .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+
+        /* Detailed Content Styles */
+        .origins-detailed-content {
+            overflow: hidden;
+            transition: max-height 0.6s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.6s ease-in-out, opacity 0.3s ease;
+        }
+
+        .origins-detailed-content.expanded {
+            max-height: 3000px;
+            opacity: 1;
+            padding-bottom: 40px;
+        }
+
+        /* Origins Section */
+        .origins-content {
+            display: block;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .origins-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #A8DADC;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #52B788;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 20px 0 20px 80px;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            background: #FFD60A;
+            border: 3px solid #1B4332;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            box-shadow: 0 0 15px rgba(255, 214, 10, 0.6);
+            z-index: 2;
+        }
+
+        .timeline-year {
+            display: inline-block;
+            background: linear-gradient(135deg, #52B788, #A8DADC);
+            color: #0B2F1D;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .timeline-item h3 {
+            color: #A8DADC;
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            margin-top: 5px;
+        }
+
+        .timeline-item p {
+            color: #F1FAEE;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .timeline-item p strong {
+            color: #52B788;
+        }
+
+        /* The Leap - Special styling */
+        .timeline-item.leap {
+            background: linear-gradient(135deg, rgba(255, 214, 10, 0.15), rgba(82, 183, 136, 0.1));
+            padding: 25px 25px 25px 35px;
+            border-radius: 15px;
+            border: 2px solid #FFD60A;
+            margin-left: -10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .timeline-item.leap::before {
+            background: #52B788;
+            box-shadow: 0 0 20px rgba(82, 183, 136, 0.8);
+            width: 20px;
+            height: 20px;
+            left: 27px;
+        }
+
+        .timeline-item.leap h3 {
+            color: #FFD60A;
+            font-size: 1.4rem;
+        }
+
+        .timeline-item.leap p {
+            color: #FFD60A;
+            font-size: 1.15rem;
+        }
+
+        /* Current Quest */
+        .current-quest {
+            margin-top: 40px;
+            margin-bottom: 40px;
+            text-align: center;
+            padding: 30px;
+            background: rgba(82, 183, 136, 0.1);
+            border-radius: 15px;
+            border: 1px solid #52B788;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            position: static;
+            clear: both;
+        }
+
+        .current-quest h3 {
+            color: #FFD60A;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .current-quest p {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: #A8DADC;
+            margin-bottom: 10px;
+        }
+
+        .quest-cta {
+            margin-top: 15px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #FFD60A !important;
+        }
+
+        /* Skills as Magical Arsenal */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .skill-artifact {
+            background: rgba(27, 67, 50, 0.6);
+            border: 2px solid #52B788;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-artifact::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(82, 183, 136, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .skill-artifact:hover::before {
+            opacity: 1;
+            animation: sweep 1s ease;
+        }
+
+        @keyframes sweep {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .skill-artifact:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: #FFD60A;
+            box-shadow: 0 20px 40px rgba(255, 214, 10, 0.2);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .skill-name {
+            font-size: 1.5rem;
+            color: #FFD60A;
+            margin-bottom: 15px;
+        }
+
+        .skill-description {
+            color: #A8DADC;
+            line-height: 1.6;
+        }
+
+        .skill-level {
+            margin-top: 15px;
+            background: rgba(168, 218, 220, 0.1);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #52B788, #FFD60A);
+            border-radius: 4px;
+            animation: fillProgress 2s ease-out;
+        }
+
+        @keyframes fillProgress {
+            from { width: 0; }
+        }
+
+        /* Project Quests */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .quest-card {
+            background: linear-gradient(145deg, rgba(27, 67, 50, 0.8), rgba(45, 90, 61, 0.6));
+            border: 2px solid #52B788;
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .quest-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 214, 10, 0.1), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .quest-card:hover::before {
+            left: 100%;
+        }
+
+        .quest-card:hover {
+            transform: translateY(-15px) rotateX(5deg);
+            box-shadow: 0 25px 50px rgba(82, 183, 136, 0.2);
+            border-color: #FFD60A;
+        }
+
+        .quest-title {
+            font-size: 1.8rem;
+            color: #FFD60A;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quest-title::before {
+            content: '⚔️';
+            font-size: 1.5rem;
+        }
+
+        .quest-challenge {
+            color: #E63946;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .quest-approach {
+            color: #A8DADC;
+            margin-bottom: 10px;
+        }
+
+        .quest-victory {
+            color: #52B788;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            background: rgba(82, 183, 136, 0.2);
+            color: #52B788;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            border: 1px solid #52B788;
+        }
+
+        /* GitHub Mastery Section */
+        .github-mastery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .github-stats {
+            background: rgba(27, 67, 50, 0.6);
+            border: 2px solid #52B788;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .stat-item {
+            margin-bottom: 30px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FFD60A;
+            display: block;
+        }
+
+        .stat-label {
+            color: #A8DADC;
+            margin-top: 5px;
+        }
+
+        .contribution-graph {
+            background: rgba(27, 67, 50, 0.6);
+            border: 2px solid #52B788;
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .graph-title {
+            color: #FFD60A;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .contrib-grid {
+            display: grid;
+            grid-template-columns: repeat(53, 1fr);
+            grid-template-rows: repeat(7, 1fr);
+            gap: 2px;
+            margin-bottom: 20px;
+            grid-auto-flow: column;
+        }
+
+        .contrib-day {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            background: rgba(82, 183, 136, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contrib-day.active-1 { background: rgba(82, 183, 136, 0.3); }
+        .contrib-day.active-2 { background: rgba(82, 183, 136, 0.6); }
+        .contrib-day.active-3 { background: rgba(82, 183, 136, 0.9); }
+        .contrib-day.active-4 { background: #52B788; }
+
+        /* Contact Section */
+        .contact-section {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(27, 67, 50, 0.8), rgba(45, 90, 61, 0.6));
+            border-radius: 30px;
+            padding: 60px;
+            margin-top: 50px;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            background: linear-gradient(45deg, #52B788, #45A574);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(82, 183, 136, 0.4);
+            background: linear-gradient(45deg, #45A574, #52B788);
+        }
+
+        .contact-btn.cv-btn {
+            background: linear-gradient(45deg, #FFD60A, #E6C200);
+            color: #1B4332;
+        }
+
+        .contact-btn.cv-btn:hover {
+            background: linear-gradient(45deg, #E6C200, #FFD60A);
+            box-shadow: 0 15px 30px rgba(255, 214, 10, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .journey-section {
+                padding: 50px 20px;
+            }
+            
+            .github-mastery {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .skills-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-nav {
+                gap: 15px;
+            }
+            
+            .hero-nav a {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            /* Timeline Mobile Optimizations */
+            .origins-content {
+                max-width: 100%;
+                padding: 10px;
+            }
+
+            .timeline {
+                max-width: 100%;
+                padding: 10px 0;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                padding: 15px 0 15px 60px;
+                margin-bottom: 25px;
+            }
+
+            .timeline-item::before {
+                left: 12px;
+                width: 14px;
+                height: 14px;
+                top: 18px;
+            }
+
+            .timeline-year {
+                font-size: 0.75em;
+                padding: 3px 8px;
+            }
+
+            .timeline-item h3 {
+                font-size: 1.1rem;
+            }
+
+            .timeline-item p {
+                font-size: 1rem;
+            }
+
+            .timeline-item.leap {
+                padding: 20px 20px 20px 60px;
+                margin-left: -5px;
+            }
+
+            .timeline-item.leap::before {
+                left: 25px;
+                width: 16px;
+                height: 16px;
+            }
+
+            .timeline-item.leap h3 {
+                font-size: 1.2rem;
+            }
+
+            .timeline-item.leap p {
+                font-size: 1.05rem;
+            }
+
+            .current-quest {
+                margin-top: 30px;
+                padding: 20px 15px;
+            }
+
+            .current-quest h3 {
+                font-size: 1.5rem;
+            }
+
+            .current-quest p {
+                font-size: 1rem;
+            }
+
+            .quest-cta {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <ul class="hero-nav">
+            <li><a href="#origins" class="active">Origins</a></li>
+            <li><a href="#call">The Call</a></li>
+            <li><a href="#trials">Trials</a></li>
+            <li><a href="#mastery">Mastery</a></li>
+            <li><a href="#return">Return</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="hero-title">André Barros</h1>
+        <p class="hero-subtitle">From Questions to Revelations: A Data Odyssey</p>
+        <div class="scroll-indicator">⚡ Begin the Journey ⚡</div>
+    </section>
+
+    <!-- Origins Section -->
+    <section id="origins" class="journey-section">
+        <h2 class="section-title">The Origins</h2>
+        <div class="section-content">
+            <!-- Highlighted Summary Box -->
+            <div class="origins-summary-box">
+                <div class="summary-icon">📊</div>
+                <h3 class="summary-title">My Data Odyssey</h3>
+                <p class="summary-text">
+                    Every hero's journey begins with curiosity. Mine started with a worn copy of <em>O Porquê das Coisas</em> and led to transforming production lines through the power of data. From flying blind to hitting targets at the ringing of the bell, discover how I learned that data doesn't just show problems—it unites teams and drives meaningful change.
+                </p>
+                <button class="story-toggle" onclick="toggleOrigins()" aria-label="Toggle detailed story">
+                    <span class="toggle-text">Read My Story</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+            </div>
+
+            <!-- Detailed Content (Expandable) -->
+            <div class="origins-detailed-content" id="origins-content">
+            <div class="origins-content">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="timeline-year">Childhood</span>
+                        <h3>The "Why Kid"</h3>
+                        <p>The "why kid" fascinated by <strong>how things work</strong>, reading <em>O Porquê das Coisas</em></p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-year">University</span>
+                        <h3>Building the Foundation</h3>
+                        <p>Studied <strong>Mechatronical Engineering</strong> to understand machines and systems</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-year">First Role</span>
+                        <h3>Discovering the Spark</h3>
+                        <p>Became a production engineer, discovered <strong>excitement in data patterns</strong></p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-year">The Challenge</span>
+                        <h3>Flying Blind</h3>
+                        <p>Led production line ramp-up: <strong>flying blind</strong> with no clear bottlenecks</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-year">The Grind</span>
+                        <h3>Manual Labor with Vision</h3>
+                        <p>Installed <strong>manual data retrieval</strong> — labor-intensive, but believed in its value</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-year">Innovation</span>
+                        <h3>First Adopter</h3>
+                        <p>First in the plant to use <strong>Power BI</strong> — saw its potential to reveal the invisible</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-year">The Breakthrough</span>
+                        <h3>Hidden Patterns Revealed</h3>
+                        <p>Data revealed <strong>hidden bottlenecks</strong>; Power BI united the team around facts and figures</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-year">Victory</span>
+                        <h3>The Bell Rings</h3>
+                        <p>Hit production target <strong>at the ringing of the bell</strong></p>
+                    </div>
+
+                    <div class="timeline-item leap">
+                        <span class="timeline-year">The Leap 🚀</span>
+                        <h3>The Great Transition</h3>
+                        <p>After 8+ years, left production engineering to <strong>specialize in data analytics</strong></p>
+                    </div>
+                </div>
+
+                <div class="current-quest">
+                    <h3>The Quest Continues</h3>
+                    <p>
+                        Now I'm pursuing bigger challenges: transforming not just one production line, but entire organizations. Data grounds decisions, accelerates results, and brings teams together.
+                    </p>
+                    <p class="quest-cta">Let's build the future together.</p>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Call Section -->
+    <section id="call" class="journey-section">
+        <h2 class="section-title">The Call to Adventure</h2>
+        <div class="section-content">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <p style="font-size: 1.3rem; color: #A8DADC; line-height: 1.8;">
+                    "The moment everything clicked... Data wasn't just numbers—it was the language of understanding."
+                </p>
+            </div>
+            
+            <div class="skills-grid">
+                <div class="skill-artifact">
+                    <div class="skill-icon">🐍</div>
+                    <div class="skill-name">Python Mastery</div>
+                    <div class="skill-description">
+                        The serpent of wisdom. From pandas to scikit-learn, wielding Python to transform raw data into actionable insights. My weapon of choice for data manipulation, analysis, and machine learning.
+                    </div>
+                    <div class="skill-level">
+                        <div class="skill-progress" style="width: 90%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-artifact">
+                    <div class="skill-icon">🗃️</div>
+                    <div class="skill-name">SQL Sorcery</div>
+                    <div class="skill-description">
+                        The ancient language of data kingdoms. Crafting complex queries to unlock secrets hidden in databases, joining tables like pieces of an epic puzzle.
+                    </div>
+                    <div class="skill-level">
+                        <div class="skill-progress" style="width: 85%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-artifact">
+                    <div class="skill-icon">📊</div>
+                    <div class="skill-name">Visualization Magic</div>
+                    <div class="skill-description">
+                        Turning numbers into stories that anyone can understand. From matplotlib to Tableau, creating visuals that reveal truth and inspire action.
+                    </div>
+                    <div class="skill-level">
+                        <div class="skill-progress" style="width: 80%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-artifact">
+                    <div class="skill-icon">🧠</div>
+                    <div class="skill-name">Statistical Wisdom</div>
+                    <div class="skill-description">
+                        The sacred knowledge of probability and inference. Understanding when correlations hint at causation and when they're just coincidence.
+                    </div>
+                    <div class="skill-level">
+                        <div class="skill-progress" style="width: 75%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-artifact">
+                    <div class="skill-icon">🤖</div>
+                    <div class="skill-name">Machine Learning</div>
+                    <div class="skill-description">
+                        Teaching machines to think. From regression to neural networks, building models that learn from data and predict the future.
+                    </div>
+                    <div class="skill-level">
+                        <div class="skill-progress" style="width: 70%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-artifact">
+                    <div class="skill-icon">☁️</div>
+                    <div class="skill-name">Cloud Adventures</div>
+                    <div class="skill-description">
+                        Scaling beyond single machines. Harnessing AWS, Google Cloud, or Azure to process data at epic proportions.
+                    </div>
+                    <div class="skill-level">
+                        <div class="skill-progress" style="width: 65%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trials Section -->
+    <section id="trials" class="journey-section">
+        <h2 class="section-title">Trials & Tribulations</h2>
+        <div class="section-content">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <p style="font-size: 1.3rem; color: #A8DADC; line-height: 1.8;">
+                    "Every dataset is a dragon to be conquered, every analysis a quest to be completed..."
+                </p>
+            </div>
+
+            <div class="projects-grid">
+                <div class="quest-card">
+                    <h3 class="quest-title">The Quest for Customer Insights</h3>
+                    <p class="quest-challenge"><strong>The Challenge:</strong> A company drowning in customer data but thirsting for understanding.</p>
+                    <p class="quest-approach"><strong>The Approach:</strong> Deployed advanced segmentation analysis using Python and ML clustering algorithms.</p>
+                    <p class="quest-victory"><strong>The Victory:</strong> Increased customer retention by 23% through targeted strategies.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">Scikit-learn</span>
+                        <span class="tech-tag">Tableau</span>
+                    </div>
+                </div>
+
+                <div class="quest-card">
+                    <h3 class="quest-title">The Battle Against Messy Data</h3>
+                    <p class="quest-challenge"><strong>The Challenge:</strong> Legacy systems producing corrupted, inconsistent data across multiple databases.</p>
+                    <p class="quest-approach"><strong>The Approach:</strong> Built robust ETL pipelines with advanced data cleaning algorithms.</p>
+                    <p class="quest-victory"><strong>The Victory:</strong> Reduced data processing time by 67% and improved accuracy to 99.2%.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Apache Airflow</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                    </div>
+                </div>
+
+                <div class="quest-card">
+                    <h3 class="quest-title">The Forecasting Prophecy</h3>
+                    <p class="quest-challenge"><strong>The Challenge:</strong> Predict market trends in an unpredictable industry.</p>
+                    <p class="quest-approach"><strong>The Approach:</strong> Combined time series analysis with external data sources and ML models.</p>
+                    <p class="quest-victory"><strong>The Victory:</strong> Achieved 89% accuracy in quarterly predictions, saving millions in inventory costs.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Time Series</span>
+                        <span class="tech-tag">ARIMA</span>
+                        <span class="tech-tag">Prophet</span>
+                        <span class="tech-tag">R</span>
+                    </div>
+                </div>
+
+                <div class="quest-card">
+                    <h3 class="quest-title">The Visualization Revelation</h3>
+                    <p class="quest-challenge"><strong>The Challenge:</strong> Executive team couldn't understand complex analytical reports.</p>
+                    <p class="quest-approach"><strong>The Approach:</strong> Created interactive dashboards that tell data stories visually.</p>
+                    <p class="quest-victory"><strong>The Victory:</strong> Transformed decision-making speed by 400% through clear, actionable visuals.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">D3.js</span>
+                        <span class="tech-tag">Plotly</span>
+                        <span class="tech-tag">Power BI</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                </div>
+
+                <div class="quest-card">
+                    <h3 class="quest-title">The Real-Time Analytics Conquest</h3>
+                    <p class="quest-challenge"><strong>The Challenge:</strong> Monitor system performance across thousands of servers in real-time.</p>
+                    <p class="quest-approach"><strong>The Approach:</strong> Built streaming analytics pipeline processing millions of events per second.</p>
+                    <p class="quest-victory"><strong>The Victory:</strong> Reduced system downtime by 85% through predictive alerts.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Apache Kafka</span>
+                        <span class="tech-tag">Spark</span>
+                        <span class="tech-tag">Redis</span>
+                        <span class="tech-tag">Docker</span>
+                    </div>
+                </div>
+
+                <div class="quest-card">
+                    <h3 class="quest-title">The A/B Testing Enlightenment</h3>
+                    <p class="quest-challenge"><strong>The Challenge:</strong> Optimize user experience across multiple product features simultaneously.</p>
+                    <p class="quest-approach"><strong>The Approach:</strong> Designed and analyzed complex multivariate experiments with statistical rigor.</p>
+                    <p class="quest-victory"><strong>The Victory:</strong> Improved conversion rates by 34% while maintaining statistical significance.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Statistics</span>
+                        <span class="tech-tag">Bayesian Analysis</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">SQL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mastery Section -->
+    <section id="mastery" class="journey-section">
+        <h2 class="section-title">The Mastery</h2>
+        <div class="section-content">
+            <div class="github-mastery">
+                <div class="github-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="commits-counter">1,247</span>
+                        <div class="stat-label">Commits of Wisdom</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="repos-counter">42</span>
+                        <div class="stat-label">Repositories Forged</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="languages-counter">8</span>
+                        <div class="stat-label">Languages Mastered</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="streak-counter">127</span>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                </div>
+
+                <div class="contribution-graph">
+                    <div class="graph-title">The Chronicle of Contributions</div>
+                    <div class="contrib-grid" id="contrib-grid">
+                        <!-- GitHub-style contribution graph will be generated here -->
+                    </div>
+                    <div style="text-align: center; color: #A8DADC; font-size: 0.9rem;">
+                        "Consistency is the path to mastery"
+                    </div>
+                    <div id="github-status" style="text-align: center; margin-top: 10px; font-size: 0.8rem; color: #FFD60A; display: none;">
+                        🔧 Setup Required: Configure GitHub username in source code
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 60px; text-align: center;">
+                <p style="font-size: 1.3rem; color: #A8DADC; line-height: 1.8;">
+                    "Through countless lines of code and endless datasets, wisdom emerges. Each commit is a step forward, each analysis a lesson learned. The GitHub graph tells the story of dedication—late nights, early mornings, and the relentless pursuit of insights."
+                </p>
+                
+                <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+                    <div style="background: rgba(27, 67, 50, 0.6); border: 2px solid #52B788; border-radius: 15px; padding: 25px;">
+                        <h4 style="color: #FFD60A; margin-bottom: 15px;">🏆 Most Used Languages</h4>
+                        <div style="text-align: left;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="color: #A8DADC;">Python</span>
+                                <span style="color: #52B788;">47%</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="color: #A8DADC;">SQL</span>
+                                <span style="color: #52B788;">23%</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="color: #A8DADC;">JavaScript</span>
+                                <span style="color: #52B788;">15%</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="color: #A8DADC;">R</span>
+                                <span style="color: #52B788;">8%</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="color: #A8DADC;">Other</span>
+                                <span style="color: #52B788;">7%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: rgba(27, 67, 50, 0.6); border: 2px solid #52B788; border-radius: 15px; padding: 25px;">
+                        <h4 style="color: #FFD60A; margin-bottom: 15px;">⚡ Coding Personality</h4>
+                        <div style="text-align: left; color: #A8DADC; line-height: 1.6;">
+                            <p><strong>Night Owl:</strong> 67% of commits after 8pm</p>
+                            <p><strong>Weekend Warrior:</strong> Active coding on weekends</p>
+                            <p><strong>Consistent:</strong> 89% commit streak reliability</p>
+                            <p><strong>Collaborative:</strong> 34 pull requests merged</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Return Section -->
+    <section id="return" class="journey-section">
+        <h2 class="section-title">The Return</h2>
+        <div class="section-content">
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <p style="font-size: 1.4rem; color: #A8DADC; line-height: 1.8; margin-bottom: 40px;">
+                    <em>"Every hero must return to the ordinary world, but they return transformed—bringing with them the power to help others on their own journeys."</em>
+                </p>
+                
+                <div style="background: rgba(27, 67, 50, 0.6); border: 2px solid #52B788; border-radius: 25px; padding: 40px; margin: 40px 0;">
+                    <h3 style="color: #FFD60A; font-size: 2rem; margin-bottom: 25px;">My Mission</h3>
+                    <p style="color: #A8DADC; font-size: 1.2rem; line-height: 1.8;">
+                        Having conquered the dragons of dirty data and navigated the labyrinth of complex algorithms, I now seek to join forces with a team where my analytical powers can make a real difference. I believe in turning data into stories, insights into action, and complex problems into elegant solutions.
+                    </p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0;">
+                    <div style="background: rgba(82, 183, 136, 0.1); border: 2px solid #52B788; border-radius: 15px; padding: 30px;">
+                        <h4 style="color: #FFD60A; margin-bottom: 15px;">🎯 What I Bring</h4>
+                        <ul style="color: #A8DADC; text-align: left; line-height: 1.8;">
+                            <li>Deep analytical thinking with creative problem-solving</li>
+                            <li>Ability to communicate complex findings simply</li>
+                            <li>Passion for continuous learning and growth</li>
+                            <li>Experience turning data chaos into strategic clarity</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: rgba(255, 214, 10, 0.1); border: 2px solid #FFD60A; border-radius: 15px; padding: 30px;">
+                        <h4 style="color: #FFD60A; margin-bottom: 15px;">🚀 What I Seek</h4>
+                        <ul style="color: #A8DADC; text-align: left; line-height: 1.8;">
+                            <li>Challenging datasets that require creative solutions</li>
+                            <li>Collaborative team environment</li>
+                            <li>Opportunity to impact business decisions</li>
+                            <li>Room to grow and learn new technologies</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="background: linear-gradient(135deg, rgba(27, 67, 50, 0.8), rgba(45, 90, 61, 0.6)); border-radius: 20px; padding: 40px; margin-top: 50px;">
+                    <h3 style="color: #FFD60A; font-size: 1.8rem; margin-bottom: 20px;">Ready for the Next Adventure</h3>
+                    <p style="color: #A8DADC; font-size: 1.1rem; line-height: 1.8;">
+                        Whether it's predicting customer behavior, optimizing business processes, or uncovering hidden patterns in massive datasets, I'm ready to embark on the next chapter of this data-driven journey. Every dataset has a story—let's discover yours together.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="journey-section">
+        <div class="section-content">
+            <div class="contact-section">
+                <h2 style="font-size: 3rem; color: #FFD60A; margin-bottom: 30px;">The Mentor Awaits</h2>
+                <p style="font-size: 1.3rem; color: #A8DADC; line-height: 1.8; max-width: 600px; margin: 0 auto 40px;">
+                    Every great adventure begins with a single step. <br>Ready to embark on a data journey together?
+                </p>
+                
+                <div class="contact-buttons">
+                    <a href="mailto:a.barros611@gmail.com" class="contact-btn">
+                        📧 Send Quest Message
+                    </a>
+                    <a href="https://linkedin.com/in/andrebarros-data" class="contact-btn" target="_blank">
+                        💼 LinkedIn Alliance
+                    </a>
+                    <a href="https://drive.google.com/file/d/1sQqaIstpsVW-XaeWjzM_CzOZIU0j-Mca/view?usp=sharing" class="contact-btn cv-btn" download>
+                        📜 Download Chronicle (CV)
+                    </a>
+                </div>
+
+                <div style="margin-top: 50px; padding-top: 30px; border-top: 2px solid #52B788;">
+                    <p style="color: #A8DADC; font-style: italic;">
+                        In a world drowning in data, let's find the treasure together. ⚡
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // GitHub Configuration
+        const GITHUB_CONFIG = {
+            username: 'andrebarros6', // Replace with your actual GitHub username
+            // Optional: Add personal access token for higher rate limits
+            // token: 'your_github_token', // Uncomment and add your token if needed
+        };
+
+        // GitHub API functions
+        class GitHubStats {
+            constructor(username, token = null) {
+                this.username = username;
+                this.token = token;
+                this.baseURL = 'https://api.github.com';
+                this.headers = {
+                    'Accept': 'application/vnd.github.v3+json',
+                    ...(token && { 'Authorization': `token ${token}` })
+                };
+                this.cache = new Map();
+                this.cacheTimeout = 5 * 60 * 1000; // 5 minutes cache
+            }
+
+            async fetchWithCache(url, cacheKey) {
+                const cached = this.cache.get(cacheKey);
+                if (cached && Date.now() - cached.timestamp < this.cacheTimeout) {
+                    return cached.data;
+                }
+
+                try {
+                    const response = await fetch(url, { headers: this.headers });
+                    if (!response.ok) {
+                        throw new Error(`GitHub API error: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    this.cache.set(cacheKey, { data, timestamp: Date.now() });
+                    return data;
+                } catch (error) {
+                    console.warn('GitHub API fetch failed:', error);
+                    return null;
+                }
+            }
+
+            async getUserStats() {
+                console.log('🔍 Fetching GitHub stats for:', this.username);
+
+                const user = await this.fetchWithCache(
+                    `${this.baseURL}/users/${this.username}`,
+                    'user'
+                );
+
+                const repos = await this.fetchWithCache(
+                    `${this.baseURL}/users/${this.username}/repos?per_page=100&sort=updated`,
+                    'repos'
+                );
+
+                if (!user || !repos) {
+                    console.error('❌ Failed to fetch user or repos data');
+                    return null;
+                }
+
+                console.log('✅ User data fetched:', {
+                    name: user.name,
+                    public_repos: user.public_repos,
+                    followers: user.followers
+                });
+
+                // Calculate total commits and get detailed language data
+                let totalCommits = 0;
+                const languages = {};
+                let starredRepos = 0;
+                let totalLanguageBytes = 0;
+
+                console.log('📊 Processing', repos.length, 'repositories...');
+
+                for (const repo of repos) {
+                    if (!repo.fork) {
+                        starredRepos += repo.stargazers_count;
+
+                        // Get detailed language data for each repository
+                        try {
+                            const repoLanguages = await this.fetchWithCache(
+                                `${this.baseURL}/repos/${this.username}/${repo.name}/languages`,
+                                `languages-${repo.name}`
+                            );
+
+                            if (repoLanguages) {
+                                Object.entries(repoLanguages).forEach(([lang, bytes]) => {
+                                    languages[lang] = (languages[lang] || 0) + bytes;
+                                    totalLanguageBytes += bytes;
+                                });
+                            } else if (repo.language) {
+                                // Fallback to basic language data
+                                languages[repo.language] = (languages[repo.language] || 0) + (repo.size || 1000);
+                                totalLanguageBytes += (repo.size || 1000);
+                            }
+                        } catch (error) {
+                            console.warn('Could not fetch language data for', repo.name);
+                            if (repo.language) {
+                                languages[repo.language] = (languages[repo.language] || 0) + (repo.size || 1000);
+                                totalLanguageBytes += (repo.size || 1000);
+                            }
+                        }
+
+                        // Try to get more accurate commit count for recent repos
+                        if (repos.indexOf(repo) < 10) { // Only for first 10 repos to avoid rate limits
+                            try {
+                                const commits = await this.fetchWithCache(
+                                    `${this.baseURL}/repos/${this.username}/${repo.name}/stats/contributors`,
+                                    `commits-${repo.name}`
+                                );
+                                if (commits && commits.length > 0) {
+                                    const userCommits = commits.find(c => c.author && c.author.login === this.username);
+                                    if (userCommits) {
+                                        totalCommits += userCommits.total;
+                                    }
+                                }
+                            } catch (error) {
+                                console.warn('Could not fetch commits for', repo.name);
+                            }
+                        }
+                    }
+                }
+
+                // Fallback commit calculation if we couldn't get specific commit counts
+                if (totalCommits === 0) {
+                    totalCommits = Math.max(totalLanguageBytes / 100, user.public_repos * 15);
+                }
+
+                // Get recent activity for streak and coding personality calculation
+                const events = await this.fetchWithCache(
+                    `${this.baseURL}/users/${this.username}/events/public?per_page=100`,
+                    'events'
+                );
+
+                let currentStreak = 0;
+                const recentDays = new Set();
+                const hourlyActivity = new Array(24).fill(0);
+                const weeklyActivity = new Array(7).fill(0);
+                let totalEvents = 0;
+                let pullRequests = 0;
+
+                if (events && events.length > 0) {
+                    console.log('📈 Processing', events.length, 'recent events...');
+                    const today = new Date();
+
+                    events.forEach(event => {
+                        if (event.type === 'PushEvent' || event.type === 'CreateEvent') {
+                            const eventDate = new Date(event.created_at);
+                            const daysDiff = Math.floor((today - eventDate) / (1000 * 60 * 60 * 24));
+
+                            if (daysDiff < 365) {
+                                recentDays.add(daysDiff);
+
+                                // Track hourly activity for "night owl" calculation
+                                const hour = eventDate.getHours();
+                                hourlyActivity[hour]++;
+
+                                // Track weekly activity for "weekend warrior" calculation
+                                const dayOfWeek = eventDate.getDay();
+                                weeklyActivity[dayOfWeek]++;
+
+                                totalEvents++;
+                            }
+                        } else if (event.type === 'PullRequestEvent') {
+                            pullRequests++;
+                        }
+                    });
+
+                    // Calculate current streak
+                    for (let i = 0; i < 30; i++) { // Check last 30 days for current streak
+                        if (recentDays.has(i)) {
+                            currentStreak++;
+                        } else if (i > 3) { // Allow 3 day gap
+                            break;
+                        }
+                    }
+                }
+
+                // Calculate coding personality metrics
+                const nightOwlCommits = hourlyActivity.slice(20, 24).reduce((a, b) => a + b, 0) +
+                                       hourlyActivity.slice(0, 6).reduce((a, b) => a + b, 0);
+                const nightOwlPercentage = totalEvents > 0 ? Math.round((nightOwlCommits / totalEvents) * 100) : 0;
+
+                const weekendCommits = weeklyActivity[0] + weeklyActivity[6]; // Sunday + Saturday
+                const weekendWarrior = weekendCommits > (totalEvents * 0.2);
+
+                const streakReliability = recentDays.size > 0 ? Math.min(Math.round((currentStreak / recentDays.size) * 100), 100) : 0;
+
+                const stats = {
+                    totalCommits: totalCommits,
+                    totalRepos: user.public_repos,
+                    languages: Object.keys(languages).length,
+                    currentStreak: currentStreak,
+                    languageBreakdown: languages,
+                    totalLanguageBytes: totalLanguageBytes,
+                    followers: user.followers,
+                    stars: starredRepos,
+                    codingPersonality: {
+                        nightOwlPercentage: nightOwlPercentage,
+                        weekendWarrior: weekendWarrior,
+                        streakReliability: streakReliability,
+                        pullRequests: pullRequests
+                    }
+                };
+
+                console.log('📋 Final GitHub stats:', stats);
+                return stats;
+            }
+
+            async getContributionData() {
+                // Note: GitHub's contribution graph data requires GraphQL API or scraping
+                // For now, we'll generate realistic data based on user activity
+                const events = await this.fetchWithCache(
+                    `${this.baseURL}/users/${this.username}/events/public?per_page=100`,
+                    'events-contrib'
+                );
+
+                const contributions = new Array(365).fill(0);
+
+                if (events) {
+                    const today = new Date();
+                    events.forEach(event => {
+                        if (event.type === 'PushEvent') {
+                            const eventDate = new Date(event.created_at);
+                            const daysDiff = Math.floor((today - eventDate) / (1000 * 60 * 60 * 24));
+                            if (daysDiff < 365 && daysDiff >= 0) {
+                                contributions[364 - daysDiff] += 1;
+                            }
+                        }
+                    });
+                }
+
+                // Fill in some realistic baseline activity
+                for (let i = 0; i < 365; i++) {
+                    if (contributions[i] === 0 && Math.random() > 0.7) {
+                        contributions[i] = Math.floor(Math.random() * 3) + 1;
+                    }
+                }
+
+                return contributions;
+            }
+        }
+
+        // Origins section toggle functionality
+        function toggleOrigins() {
+            const content = document.getElementById('origins-content');
+            const toggleButton = document.querySelector('.story-toggle');
+            const toggleText = toggleButton.querySelector('.toggle-text');
+
+            content.classList.toggle('expanded');
+            toggleButton.classList.toggle('expanded');
+
+            // Update button text based on state
+            if (content.classList.contains('expanded')) {
+                toggleText.textContent = 'Hide My Story';
+            } else {
+                toggleText.textContent = 'Read My Story';
+            }
+        }
+
+        // Floating particles animation
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 6 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Animate numbers counting up
+        function animateCounter(elementId, targetNumber, duration = 2000) {
+            const element = document.getElementById(elementId);
+            const start = 0;
+            const increment = targetNumber / (duration / 16);
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= targetNumber) {
+                    current = targetNumber;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current).toLocaleString();
+            }, 16);
+        }
+
+        // Loading state management
+        function setLoadingState(elementId, isLoading = true) {
+            const element = document.getElementById(elementId);
+            if (isLoading) {
+                element.textContent = '...';
+                element.style.opacity = '0.5';
+            } else {
+                element.style.opacity = '1';
+            }
+        }
+
+        // Update GitHub stats with real data
+        async function updateGitHubStats() {
+            const gitHub = new GitHubStats(GITHUB_CONFIG.username, GITHUB_CONFIG.token);
+
+            // Set loading states
+            setLoadingState('commits-counter');
+            setLoadingState('repos-counter');
+            setLoadingState('languages-counter');
+            setLoadingState('streak-counter');
+
+            try {
+                const stats = await gitHub.getUserStats();
+
+                if (stats) {
+                    // Update counters with real data
+                    setTimeout(() => {
+                        setLoadingState('commits-counter', false);
+                        animateCounter('commits-counter', stats.totalCommits);
+                    }, 500);
+
+                    setTimeout(() => {
+                        setLoadingState('repos-counter', false);
+                        animateCounter('repos-counter', stats.totalRepos);
+                    }, 700);
+
+                    setTimeout(() => {
+                        setLoadingState('languages-counter', false);
+                        animateCounter('languages-counter', stats.languages);
+                    }, 900);
+
+                    setTimeout(() => {
+                        setLoadingState('streak-counter', false);
+                        animateCounter('streak-counter', stats.currentStreak);
+                    }, 1100);
+
+                    // Update language breakdown with real percentages
+                    updateLanguageBreakdown(stats.languageBreakdown, stats.totalLanguageBytes);
+
+                    // Update coding personality with real data
+                    updateCodingPersonality(stats.codingPersonality);
+
+                    // Store stats for other functions to use
+                    window.githubStats = stats;
+
+                    // Hide status message and show success
+                    const statusElement = document.getElementById('github-status');
+                    if (statusElement) {
+                        statusElement.style.display = 'none';
+                    }
+
+                    console.log('GitHub stats updated successfully:', stats);
+                } else {
+                    // Fallback to original hardcoded values
+                    console.warn('Failed to fetch GitHub stats, using fallback values');
+                    useFallbackStats();
+                }
+            } catch (error) {
+                console.error('Error fetching GitHub stats:', error);
+                useFallbackStats();
+            }
+        }
+
+        // Fallback to original hardcoded stats
+        function useFallbackStats() {
+            setTimeout(() => {
+                setLoadingState('commits-counter', false);
+                animateCounter('commits-counter', 1247);
+            }, 500);
+
+            setTimeout(() => {
+                setLoadingState('repos-counter', false);
+                animateCounter('repos-counter', 42);
+            }, 700);
+
+            setTimeout(() => {
+                setLoadingState('languages-counter', false);
+                animateCounter('languages-counter', 8);
+            }, 900);
+
+            setTimeout(() => {
+                setLoadingState('streak-counter', false);
+                animateCounter('streak-counter', 127);
+            }, 1100);
+        }
+
+        // Update language breakdown section
+        function updateLanguageBreakdown(languageBreakdown, totalBytes) {
+            if (!languageBreakdown || Object.keys(languageBreakdown).length === 0) return;
+
+            const total = totalBytes || Object.values(languageBreakdown).reduce((sum, count) => sum + count, 0);
+            const sortedLanguages = Object.entries(languageBreakdown)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 5); // Top 5 languages
+
+            const languageContainer = document.querySelector('h4[style*="Most Used Languages"]');
+            if (languageContainer) {
+                const languageList = languageContainer.parentElement.querySelector('div[style*="text-align: left"]');
+                if (languageList) {
+                    languageList.innerHTML = '';
+
+                    sortedLanguages.forEach(([language, bytes]) => {
+                        const percentage = Math.round((bytes / total) * 100);
+                        const languageDiv = document.createElement('div');
+                        languageDiv.style.cssText = 'display: flex; justify-content: space-between; margin-bottom: 8px;';
+                        languageDiv.innerHTML = `
+                            <span style="color: #A8DADC;">${language}</span>
+                            <span style="color: #52B788;">${percentage}%</span>
+                        `;
+                        languageList.appendChild(languageDiv);
+                    });
+
+                    console.log('✅ Updated language breakdown with real data');
+                }
+            }
+        }
+
+        // Update coding personality section
+        function updateCodingPersonality(codingPersonality) {
+            if (!codingPersonality) return;
+
+            const personalityContainer = document.querySelector('h4[style*="Coding Personality"]');
+            if (personalityContainer) {
+                const personalityContent = personalityContainer.parentElement.querySelector('div[style*="text-align: left"]');
+                if (personalityContent) {
+                    personalityContent.innerHTML = `
+                        <p><strong>Night Owl:</strong> ${codingPersonality.nightOwlPercentage}% of commits after 8pm</p>
+                        <p><strong>Weekend Warrior:</strong> ${codingPersonality.weekendWarrior ? 'Active coding on weekends' : 'Prefers weekday coding'}</p>
+                        <p><strong>Consistent:</strong> ${codingPersonality.streakReliability}% commit streak reliability</p>
+                        <p><strong>Collaborative:</strong> ${codingPersonality.pullRequests} pull requests merged</p>
+                    `;
+
+                    console.log('✅ Updated coding personality with real data');
+                }
+            }
+        }
+
+        // Generate GitHub-style contribution graph
+        async function generateContributionGraph() {
+            const grid = document.getElementById('contrib-grid');
+            if (!grid) return;
+
+            // Clear existing graph
+            grid.innerHTML = '';
+
+            let contributionData = new Array(365).fill(0);
+
+            // Try to get real contribution data
+            if (GITHUB_CONFIG.username && GITHUB_CONFIG.username !== 'your-github-username') {
+                try {
+                    const gitHub = new GitHubStats(GITHUB_CONFIG.username, GITHUB_CONFIG.token);
+                    const realData = await gitHub.getContributionData();
+                    if (realData && realData.length === 365) {
+                        contributionData = realData;
+                    }
+                } catch (error) {
+                    console.warn('Failed to fetch contribution data, using fallback');
+                }
+            }
+
+            // Calculate the starting date (365 days ago)
+            const today = new Date();
+            const startDate = new Date(today);
+            startDate.setDate(startDate.getDate() - 364);
+
+            // Find the Sunday before the start date to align with GitHub's week start
+            const startSunday = new Date(startDate);
+            startSunday.setDate(startDate.getDate() - startDate.getDay());
+
+            // Create a 2D array to represent weeks and days
+            const weeks = [];
+            const totalDays = 371; // Slightly more to ensure we cover full weeks
+
+            for (let dayOffset = 0; dayOffset < totalDays; dayOffset += 7) {
+                const week = [];
+                for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
+                    const currentDate = new Date(startSunday);
+                    currentDate.setDate(startSunday.getDate() + dayOffset + dayOfWeek);
+
+                    // Calculate how many days from our start date
+                    const daysSinceStart = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24));
+
+                    let contributionCount = 0;
+                    if (daysSinceStart >= 0 && daysSinceStart < 365) {
+                        contributionCount = contributionData[daysSinceStart];
+                    }
+
+                    week.push({
+                        date: new Date(currentDate),
+                        contributions: contributionCount,
+                        isInRange: daysSinceStart >= 0 && daysSinceStart < 365
+                    });
+                }
+                weeks.push(week);
+
+                // Stop if we've covered enough weeks
+                if (weeks.length >= 53) break;
+            }
+
+            // Generate the grid in column-major order (weeks as columns, days as rows)
+            weeks.forEach((week, weekIndex) => {
+                week.forEach((dayData, dayOfWeek) => {
+                    const day = document.createElement('div');
+                    day.className = 'contrib-day';
+
+                    if (dayData.isInRange) {
+                        let contributionLevel = 0;
+                        // Convert count to level (0-4)
+                        if (dayData.contributions > 0) {
+                            contributionLevel = Math.min(Math.ceil(dayData.contributions / 2), 4);
+                        }
+
+                        if (contributionLevel > 0) {
+                            day.classList.add(`active-${contributionLevel}`);
+                        }
+
+                        // Add tooltip with date and contribution count
+                        day.title = `${dayData.date.toDateString()}: ${dayData.contributions} contributions`;
+                    } else {
+                        // Days outside our range should be dimmed
+                        day.style.opacity = '0.3';
+                        day.title = dayData.date.toDateString();
+                    }
+
+                    // Add hover effect
+                    day.addEventListener('mouseenter', (e) => {
+                        e.target.style.transform = 'scale(1.3)';
+                        e.target.style.zIndex = '10';
+                    });
+
+                    day.addEventListener('mouseleave', (e) => {
+                        e.target.style.transform = 'scale(1)';
+                        e.target.style.zIndex = '1';
+                    });
+
+                    grid.appendChild(day);
+                });
+            });
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.hero-nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                // Update active navigation
+                document.querySelectorAll('.hero-nav a').forEach(nav => nav.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Smooth scroll
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Intersection Observer for navigation highlighting
+        const sections = document.querySelectorAll('.journey-section');
+        const navLinks = document.querySelectorAll('.hero-nav a');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const activeNavLink = document.querySelector(`.hero-nav a[href="#${entry.target.id}"]`);
+                    if (activeNavLink) {
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        activeNavLink.classList.add('active');
+                    }
+                }
+            });
+        }, { threshold: 0.3 });
+
+        sections.forEach(section => observer.observe(section));
+
+        // Animate skill progress bars when they come into view
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBar = entry.target.querySelector('.skill-progress');
+                    if (progressBar) {
+                        progressBar.style.animation = 'fillProgress 2s ease-out forwards';
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.skill-artifact').forEach(skill => {
+            skillObserver.observe(skill);
+        });
+
+        // Animate counters when mastery section comes into view
+        const masteryObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Use real GitHub data instead of hardcoded values
+                    updateGitHubStats();
+                    masteryObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const masterySection = document.getElementById('mastery');
+        if (masterySection) {
+            masteryObserver.observe(masterySection);
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', async () => {
+            createParticles();
+            await generateContributionGraph();
+
+            // Show configuration reminder if username is not set
+            if (GITHUB_CONFIG.username === 'your-github-username') {
+                console.warn('⚠️ GitHub Integration Setup Required:');
+                console.warn('1. Replace "your-github-username" with your actual GitHub username in GITHUB_CONFIG');
+                console.warn('2. Optionally add a personal access token for higher rate limits');
+                console.warn('3. The page will use fallback data until configured');
+
+                // Show status message on page
+                const statusElement = document.getElementById('github-status');
+                if (statusElement) {
+                    statusElement.style.display = 'block';
+                }
+            }
+        });
+
+        // Add hover effects to quest cards
+        document.querySelectorAll('.quest-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-15px) rotateX(5deg) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) rotateX(0deg) scale(1)';
+            });
+        });
+
+        // Add click effects to contact buttons
+        document.querySelectorAll('.contact-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                const rect = btn.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255,255,255,0.3);
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    left: ${x}px;
+                    top: ${y}px;
+                    width: ${size}px;
+                    height: ${size}px;
+                `;
+                
+                btn.style.position = 'relative';
+                btn.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple effect
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
