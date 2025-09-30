@@ -1193,24 +1193,94 @@
                     </p>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0;">
-                    <div style="background: rgba(82, 183, 136, 0.1); border: 2px solid #52B788; border-radius: 15px; padding: 30px;">
-                        <h4 style="color: #FFD60A; margin-bottom: 15px;">🎯 What I Bring</h4>
-                        <ul style="color: #A8DADC; text-align: left; line-height: 1.8;">
-                            <li>Deep analytical thinking with creative problem-solving</li>
-                            <li>Ability to communicate complex findings simply</li>
-                            <li>Passion for continuous learning and growth</li>
-                            <li>Experience turning data chaos into strategic clarity</li>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin: 50px 0;">
+                    <div style="
+                        background: linear-gradient(135deg, rgba(255, 214, 10, 0.15), rgba(230, 194, 0, 0.1));
+                        border: 3px solid #FFD60A;
+                        border-radius: 25px;
+                        padding: 35px;
+                        position: relative;
+                        overflow: hidden;
+                        transition: all 0.4s ease;
+                        box-shadow: 0 15px 35px rgba(255, 214, 10, 0.2);
+                        backdrop-filter: blur(15px);
+                    " onmouseover="this.style.transform='translateY(-10px) scale(1.02)'; this.style.boxShadow='0 25px 50px rgba(255, 214, 10, 0.3)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 15px 35px rgba(255, 214, 10, 0.2)'">
+                        <div style="
+                            position: absolute;
+                            top: -50%;
+                            left: -50%;
+                            width: 200%;
+                            height: 200%;
+                            background: linear-gradient(45deg, transparent, rgba(255, 214, 10, 0.1), transparent);
+                            transform: rotate(45deg);
+                            opacity: 0;
+                            transition: opacity 0.6s ease;
+                        "></div>
+                        <h4 style="color: #FFD60A; margin-bottom: 20px; font-size: 1.6rem; display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 2rem;">🎯</span> What I Bring
+                        </h4>
+                        <ul style="color: #A8DADC; text-align: left; line-height: 2; font-size: 1.1rem; list-style: none; padding-left: 0;">
+                            <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: #FFD60A; font-weight: bold;">⚡</span>
+                                Deep analytical thinking with creative problem-solving
+                            </li>
+                            <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: #FFD60A; font-weight: bold;">⚡</span>
+                                Ability to communicate complex findings simply
+                            </li>
+                            <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: #FFD60A; font-weight: bold;">⚡</span>
+                                Passion for continuous learning and growth
+                            </li>
+                            <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: #FFD60A; font-weight: bold;">⚡</span>
+                                Experience turning data chaos into strategic clarity
+                            </li>
                         </ul>
                     </div>
-                    
-                    <div style="background: rgba(255, 214, 10, 0.1); border: 2px solid #FFD60A; border-radius: 15px; padding: 30px;">
-                        <h4 style="color: #FFD60A; margin-bottom: 15px;">🚀 What I Seek</h4>
-                        <ul style="color: #A8DADC; text-align: left; line-height: 1.8;">
-                            <li>Challenging datasets that require creative solutions</li>
-                            <li>Collaborative team environment</li>
-                            <li>Opportunity to impact business decisions</li>
-                            <li>Room to grow and learn new technologies</li>
+
+                    <div style="
+                        background: linear-gradient(135deg, rgba(82, 183, 136, 0.15), rgba(27, 67, 50, 0.8));
+                        border: 3px solid #52B788;
+                        border-radius: 25px;
+                        padding: 35px;
+                        position: relative;
+                        overflow: hidden;
+                        transition: all 0.4s ease;
+                        box-shadow: 0 15px 35px rgba(82, 183, 136, 0.2);
+                        backdrop-filter: blur(15px);
+                    " onmouseover="this.style.transform='translateY(-10px) scale(1.02)'; this.style.boxShadow='0 25px 50px rgba(82, 183, 136, 0.3)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 15px 35px rgba(82, 183, 136, 0.2)'">
+                        <div style="
+                            position: absolute;
+                            top: -50%;
+                            left: -50%;
+                            width: 200%;
+                            height: 200%;
+                            background: linear-gradient(45deg, transparent, rgba(82, 183, 136, 0.1), transparent);
+                            transform: rotate(45deg);
+                            opacity: 0;
+                            transition: opacity 0.6s ease;
+                        "></div>
+                        <h4 style="color: #FFD60A; margin-bottom: 20px; font-size: 1.6rem; display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 2rem;">🚀</span> What I Seek
+                        </h4>
+                        <ul style="color: #A8DADC; text-align: left; line-height: 2; font-size: 1.1rem; list-style: none; padding-left: 0;">
+                            <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: #52B788; font-weight: bold;">▶</span>
+                                Challenging datasets that require creative solutions
+                            </li>
+                            <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: #52B788; font-weight: bold;">▶</span>
+                                Collaborative team environment
+                            </li>
+                            <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: #52B788; font-weight: bold;">▶</span>
+                                Opportunity to impact business decisions
+                            </li>
+                            <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0; color: #52B788; font-weight: bold;">▶</span>
+                                Room to grow and learn new technologies
+                            </li>
                         </ul>
                     </div>
                 </div>
