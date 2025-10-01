@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Data Hero's Journey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 60px;
+            box-shadow: 0 20px 80px rgba(0,0,0,0.3);
+        }
+        
+        .hero-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #2a5298;
+        }
+        
+        h1 {
+            color: #1e3c72;
+            font-size: 42px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .tagline {
+            color: #666;
+            font-size: 20px;
+            font-style: italic;
+        }
+        
+        .chapter {
+            margin-bottom: 50px;
+        }
+        
+        .chapter-title {
+            color: #2a5298;
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .story-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 15px;
+        }
+        
+        .story-text strong {
+            color: #1e3c72;
+        }
+        
+        .timeline {
+            margin-top: 40px;
+            padding-left: 30px;
+            border-left: 4px solid #2a5298;
+        }
+        
+        .timeline-item {
+            margin-bottom: 35px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -37px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            background: #2a5298;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 0 0 2px #2a5298;
+        }
+        
+        .timeline-item h3 {
+            color: #1e3c72;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-item p {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #555;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+        
+        .highlight-box h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box p {
+            font-size: 17px;
+            line-height: 1.7;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .stat-box {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .leap-forward {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .leap-forward h2 {
+            color: white;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero-header">
+            <h1>The Data Hero's Journey</h1>
+            <p class="tagline">From "Why?" to "What if?" — A Story of Discovery</p>
+        </div>
+        
+        <div class="chapter">
+            <h2 class="chapter-title">In the Ordinary World...</h2>
+            <p class="story-text">
+                Every hero's journey begins with curiosity. Mine started with a worn copy of <em>O Porquê das Coisas</em> — a Portuguese book that explained how machines and devices worked. As the quintessential "why kid," I devoured every page, fascinated by the mechanisms hidden beneath everyday surfaces.
+            </p>
+            <p class="story-text">
+                This wasn't just childhood wonder. It was the beginning of a pattern: an insatiable need to understand <strong>how things work</strong> and <strong>why they work the way they do</strong>. I'm deeply analytical by nature, always rationalizing, always seeking the logic behind events. I make lists. I track everything in spreadsheets — even my personal expenses, meticulously categorized to understand where money flows.
+            </p>
+            <p class="story-text">
+                I studied mechatronical engineering to dig deeper into this pursuit, focusing on devices and hardware machines. But the real transformation came later, in a place I didn't expect: the manufacturing floor.
+            </p>
+        </div>
+        
+        <div class="chapter">
+            <h2 class="chapter-title">The Call to Adventure</h2>
+            <p class="story-text">
+                As a production engineer, something clicked. Scrolling through production numbers wasn't just work — it was <strong>thrilling</strong>. I found myself genuinely excited diving into datasets, searching for patterns, asking questions the numbers could answer. What looked like rows and columns to others felt like puzzles waiting to be solved, stories waiting to be told.
+            </p>
+            <p class="story-text">
+                I became the first person in the plant to use Power BI — not because I was told to, but because I recognized its potential. The tool could reveal what was invisible before. And I wanted to see.
+            </p>
+        </div>
+        
+        <div class="highlight-box">
+            <h3>🎯 The Pivotal Quest</h3>
+            <p>
+                Then came the challenge that would change everything: I was given leadership of a production line with a seemingly impossible task. We had two similar production lines, but demand sat in an awkward middle ground — too much for one line, but not enough to justify running both at full capacity.
+            </p>
+            <p style="margin-top: 15px;">
+                <strong>My mission:</strong> Ramp up production on a single line to meet customer demand within six months.
+            </p>
+            <p style="margin-top: 15px;">
+                <strong>The problem:</strong> We were flying blind. No clear bottlenecks. No data-driven insights. Just hunches and guesswork.
+            </p>
+        </div>
+        
+        <div class="chapter">
+            <h2 class="chapter-title">The Hero's Trials</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>The Setup</h3>
+                    <p>We installed a comprehensive data retrieval process — and it was grueling. Manual, labor-intensive, tedious work that demanded hours of meticulous effort. But we endured it because we believed in something bigger: that the data we'd extract would be invaluable. That belief would prove prophetic.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>The Discovery</h3>
+                    <p>The data revealed bottlenecks hidden in plain sight. What we <em>thought</em> was the problem wasn't actually where we were losing time. Power BI transformed our tediously gathered data into crystal-clear visualizations, becoming our compass that guided every decision with evidence instead of intuition.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>The Transformation</h3>
+                    <p>Over six months, something remarkable happened. The data didn't just show us problems — it <strong>united the team</strong>. Everyone could see the same story. Stakeholders bought into solutions because the data grounded our work. Decision-making accelerated. Results came faster.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>The Victory</h3>
+                    <p>The clock was ticking. The deadline loomed. And then, almost at the ringing of the bell, <strong>we hit the target</strong>. It was exhilarating — a photo finish that made the victory even sweeter. Production stabilized at the new normal. Customer demand was met. Efficiency improved. Satisfaction soared. But more importantly, I understood something profound: data has the power to bring people together and drive meaningful change.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="leap-forward">
+            <h2>🚀 The Leap</h2>
+            <p style="font-size: 19px; line-height: 1.8;">
+                That project didn't just prove what data could do — it revealed what <em>I</em> needed to do next. The impact was undeniable, but I wanted more. Bigger challenges. Deeper insights. Broader influence.
+            </p>
+            <p style="font-size: 19px; line-height: 1.8; margin-top: 20px;">
+                So I made the leap: I left my role as a production engineer to specialize fully in data analytics. No safety net. No looking back. Just the conviction that data could transform not just one production line, but entire organizations, industries, and futures.
+            </p>
+        </div>
+        
+        <div class="chapter">
+            <h2 class="chapter-title">The Return with the Elixir</h2>
+            <p class="story-text">
+                Now, I'm on a new quest. I realized that <strong>data makes it easier to create meaningful changes that have real impact</strong> on processes and people. It grounds your work so solutions are embraced by every stakeholder. It accelerates decisions so results arrive faster.
+            </p>
+            <p class="story-text">
+                This is what drives me: the power to transform uncertainty into insight, to guide teams with evidence, and to solve problems that matter. From the child asking "why?" with <em>O Porquê das Coisas</em> in hand, to the analyst who asks "what if?" with data as my compass — the journey continues.
+            </p>
+            <p class="story-text" style="margin-top: 30px; font-size: 20px; color: #1e3c72; font-weight: 600;">
+                Every dataset is a story waiting to be told. Every bottleneck is a puzzle waiting to be solved. Every insight is a decision waiting to transform reality.
+            </p>
+            <p class="story-text" style="margin-top: 15px; font-size: 20px; color: #2a5298; font-style: italic;">
+                What if we could predict failures before they happen? What if we could unlock efficiency hidden in plain sight? What if data could help us build a better future?
+            </p>
+            <p class="story-text" style="margin-top: 15px; font-size: 22px; color: #1e3c72; font-weight: 700;">
+                Let's find out together.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
